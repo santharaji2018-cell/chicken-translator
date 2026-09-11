@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🐔 Chicken Translator AI</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #fff3c4, #ffd6a5);
+    min-height: 100vh;
+    padding: 30px 15px;
+    color: #222;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.chicken {
+    font-size: 70px;
+}
+
+h1 {
+    color: #e76f00;
+    font-size: 42px;
+    margin: 5px 0;
+}
+
+.subtitle {
+    color: #666;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.languages {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.language {
+    flex: 1;
+}
+
+.language label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    background: white;
+}
+
+.swap {
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    background: #ffb703;
+    font-size: 22px;
+    cursor: pointer;
+    margin-top: 22px;
+    transition: 0.2s;
+}
+
+.swap:hover {
+    background: #fb8500;
+    color: white;
+}
+
+.text-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.box label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+textarea {
+    width: 100%;
+    height: 220px;
+    padding: 15px;
+    resize: vertical;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    font-size: 16px;
+    outline: none;
+    font-family: Arial, sans-serif;
+}
+
+textarea:focus {
+    border-color: #ffb703;
+}
+
+#output {
+    background: #fffaf0;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 13px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.translate {
+    flex: 1;
+    min-width: 180px;
+    background: #fb8500;
+    color: white;
+}
+
+.translate:hover {
+    background: #e76f00;
+}
+
+.secondary {
+    background: #eee;
+}
+
+.secondary:hover {
+    background: #ddd;
+}
+
+.voice-button {
+    background: #fff3cd;
+    color: #8a5700;
+    border: 1px solid #ffd166;
+}
+
+.voice-button:hover {
+    background: #ffe69c;
+}
+
+.voice-button.listening {
+    background: #dc3545;
+    color: white;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.5);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+}
+
+.status {
+    margin-top: 15px;
+    color: #666;
+    text-align: center;
+    min-height: 22px;
+}
+
+.history {
+    margin-top: 25px;
+}
+
+.history h2 {
+    color: #e76f00;
+}
+
+.history-item {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+.history-item .input {
+    color: #555;
+    margin-bottom: 6px;
+    word-break: break-word;
+}
+
+.history-item .result {
+    color: #e76f00;
+    font-weight: bold;
+    word-break: break-word;
+}
+
+footer {
+    text-align: center;
+    color: #777;
+    margin-top: 30px;
+}
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 20px 10px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .text-container {
+        grid-template-columns: 1fr;
+    }
+
+    .languages {
+        flex-direction: column;
+    }
+
+    .language {
+        width: 100%;
+    }
+
+    .swap {
+        margin: 0;
+        transform: rotate(90deg);
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .translate {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <div class="chicken">🐔</div>
+
+    <h1>Chicken Translator AI</h1>
+
+    <p class="subtitle">
+        Translate between Human and Chicken language.
+    </p>
+</header>
+
+
+<div class="card">
+
+    <!-- LANGUAGE SELECTION -->
+
+    <div class="languages">
+
+        <div class="language">
+
+            <label for="fromLanguage">
+                From
+            </label>
+
+            <select id="fromLanguage">
+
+                <option value="english">
+                    🇬🇧 English
+                </option>
+
+                <option value="chicken">
+                    🐔 Chicken
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            class="swap"
+            type="button"
+            onclick="swapLanguages()"
+            title="Swap languages"
+        >
+            ⇄
+        </button>
+
+
+        <div class="language">
+
+            <label for="toLanguage">
+                To
+            </label>
+
+            <select id="toLanguage">
+
+                <option value="chicken">
+                    🐔 Chicken
+                </option>
+
+                <option value="english">
+                    🇬🇧 English
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- TEXT AREAS -->
+
+    <div class="text-container">
+
+        <div class="box">
+
+            <label for="inputText">
+                Input
+            </label>
+
+            <textarea
+                id="inputText"
+                placeholder="Type your message here..."
+            ></textarea>
+
+        </div>
+
+
+        <div class="box">
+
+            <label for="output">
+                Translation
+            </label>
+
+            <textarea
+                id="output"
+                placeholder="Your translation will appear here..."
+                readonly
+            ></textarea>
+
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+        <button
+            class="translate"
+            type="button"
+            onclick="translateText()"
+        >
+            🐔 Translate
+        </button>
+
+
+        <button
+            id="englishMicButton"
+            class="voice-button"
+            type="button"
+            onclick="startListening()"
+        >
+            🎤 Speak English
+        </button>
+
+
+        <button
+            id="chickenMicButton"
+            class="voice-button"
+            type="button"
+            onclick="startChickenListening()"
+        >
+            🐔🎤 Speak Chicken
+        </button>
+
+
+        <button
+            class="secondary"
+            type="button"
+            onclick="speak()"
+        >
+            🔊 Speak
+        </button>
+
+
+        <button
+            class="secondary"
+            type="button"
+            onclick="copyText()"
+        >
+            📋 Copy
+        </button>
+
+
+        <button
+            class="secondary"
+            type="button"
+            onclick="clearText()"
+        >
+            🗑️ Clear
+        </button>
+
+    </div>
+
+
+    <div
+        class="status"
+        id="status"
+        aria-live="polite"
+    >
+        Ready to translate 🐔
+    </div>
+
+</div>
+
+
+<!-- HISTORY -->
+
+<div class="history">
+
+    <h2>📜 Translation History</h2>
+
+    <div id="history">
+        <p>No translations yet.</p>
+    </div>
+
+</div>
+
+
+<footer>
+    🐔 Chicken Translator AI — Hackathon Project
+</footer>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   CHICKEN DICTIONARY
+========================================================= */
+
+const chickenDictionary = {
+
+    "hello": "cluck-bok",
+    "hi": "cluck",
+    "hey": "bawk",
+
+    "goodbye": "bok-bok",
+    "bye": "bok",
+
+    "yes": "bawk-bawk",
+    "no": "cluck-bawk",
+
+    "please": "bok-cluck",
+
+    "thank": "cluck-cluck",
+    "thanks": "cluck-cluck",
+
+    "i": "bawk",
+    "me": "bawk",
+    "my": "bawk-bok",
+    "you": "bok",
+
+    "friend": "cluck-bok-bok",
+
+    "love": "bawk-cluck-bawk",
+
+    "food": "bok-bok-cluck",
+    "water": "cluck-bok-cluck",
+
+    "chicken": "bawk-bawk-cluck",
+
+    "egg": "cluck-cluck-bok",
+    "eggs": "cluck-cluck-bok",
+
+    "good": "bawk-cluck",
+    "bad": "cluck-bawk",
+
+    "great": "bawk-bawk-cluck",
+
+    "happy": "bawk-cluck-cluck",
+    "sad": "cluck-cluck-bawk",
+
+    "hungry": "bok-bok",
+
+    "where": "bok-cluck-bawk",
+    "what": "cluck-bok-bawk",
+    "why": "bawk-cluck-bok",
+    "how": "cluck-bawk-bok",
+
+    "come": "bok-bawk",
+    "go": "bawk-bok",
+
+    "stop": "cluck-bawk-bawk",
+
+    "run": "bawk-bawk",
+
+    "sleep": "cluck-cluck",
+
+    "morning": "bawk-cluck-bok",
+    "night": "bok-cluck-cluck",
+
+    "house": "cluck-bawk-bok",
+
+    "school": "bawk-cluck-bawk",
+
+    "computer": "bok-bawk-cluck",
+
+    "robot": "cluck-bawk-cluck",
+
+    "ai": "bawk-cluck-bawk",
+
+    "hackathon": "bawk-bawk-cluck-bok"
+};
+
+
+/* =========================================================
+   CREATE REVERSE DICTIONARY
+========================================================= */
+
+const englishDictionary = {};
+
+for (const word in chickenDictionary) {
+
+    const chickenWord =
+        chickenDictionary[word];
+
+    englishDictionary[chickenWord] =
+        word;
+}
+
+
+/* =========================================================
+   GENERATE CHICKEN WORD
+========================================================= */
+
+function generateChickenWord(word) {
+
+    const sounds = [
+        "cluck",
+        "bawk",
+        "bok"
+    ];
+
+    let number = 0;
+
+    for (let i = 0; i < word.length; i++) {
+
+        number +=
+            word.charCodeAt(i);
+    }
+
+    const first =
+        sounds[number % 3];
+
+    const second =
+        sounds[
+            (number + word.length) % 3
+        ];
+
+    return first + "-" + second;
+}
+
+
+/* =========================================================
+   ENGLISH → CHICKEN
+========================================================= */
+
+function englishToChicken(text) {
+
+    const words =
+        text
+            .toLowerCase()
+            .match(/[a-zA-Z]+|[.,!?]/g);
+
+    if (!words) {
+        return "";
+    }
+
+    const result = [];
+
+    for (const word of words) {
+
+        if (chickenDictionary[word]) {
+
+            result.push(
+                chickenDictionary[word]
+            );
+
+        }
+
+        else if (
+            ".,!?".includes(word)
+        ) {
+
+            if (result.length > 0) {
+
+                result[result.length - 1] +=
+                    word;
+            }
+
+        }
+
+        else {
+
+            result.push(
+                generateChickenWord(word)
+            );
+        }
+    }
+
+    return result.join(" ");
+}
+
+
+/* =========================================================
+   CHICKEN → ENGLISH
+========================================================= */
+
+function chickenToEnglish(text) {
+
+    if (!text.trim()) {
+        return "";
+    }
+
+    const words =
+        text
+            .toLowerCase()
+            .trim()
+            .split(/\s+/);
+
+    const result = [];
+
+    for (let word of words) {
+
+        let punctuation = "";
+
+        /*
+         * Remove ending punctuation temporarily.
+         */
+
+        if (
+            word.endsWith(".") ||
+            word.endsWith(",") ||
+            word.endsWith("!") ||
+            word.endsWith("?")
+        ) {
+
+            punctuation =
+                word.charAt(
+                    word.length - 1
+                );
+
+            word =
+                word.slice(0, -1);
+        }
+
+
+        if (englishDictionary[word]) {
+
+            result.push(
+                englishDictionary[word]
+            );
+
+        }
+
+        else {
+
+            result.push(
+                interpretChicken(word)
+            );
+        }
+
+
+        if (punctuation) {
+
+            result[result.length - 1] +=
+                punctuation;
+        }
+    }
+
+
+    let sentence =
+        result.join(" ");
+
+    if (sentence.length > 0) {
+
+        sentence =
+            sentence.charAt(0).toUpperCase() +
+            sentence.slice(1);
+    }
+
+    return sentence;
+}
+
+
+/* =========================================================
+   INTERPRET UNKNOWN CHICKEN
+========================================================= */
+
+function interpretChicken(sound) {
+
+    const bawks =
+        (sound.match(/bawk/g) || []).length;
+
+    const clucks =
+        (sound.match(/cluck/g) || []).length;
+
+    const boks =
+        (sound.match(/bok/g) || []).length;
+
+
+    if (bawks >= 3) {
+        return "excited";
+    }
+
+    if (clucks >= 3) {
+        return "happy";
+    }
+
+    if (boks >= 3) {
+        return "hungry";
+    }
+
+    if (bawks > clucks) {
+        return "hello";
+    }
+
+    if (clucks > bawks) {
+        return "friend";
+    }
+
+    return "chicken";
+}
+
+
+/* =========================================================
+   MAIN TRANSLATION
+========================================================= */
+
+function translateText() {
+
+    const input =
+        document
+            .getElementById("inputText")
+            .value
+            .trim();
+
+    const from =
+        document
+            .getElementById("fromLanguage")
+            .value;
+
+    const to =
+        document
+            .getElementById("toLanguage")
+            .value;
+
+    const output =
+        document.getElementById("output");
+
+    const status =
+        document.getElementById("status");
+
+
+    /*
+     * Empty input.
+     */
+
+    if (input === "") {
+
+        output.value = "";
+
+        status.innerText =
+            "⚠️ Please enter something first!";
+
+        return;
+    }
+
+
+    /*
+     * Same language.
+     */
+
+    if (from === to) {
+
+        output.value = input;
+
+        status.innerText =
+            "Both languages are the same.";
+
+        return;
+    }
+
+
+    /*
+     * Processing message.
+     */
+
+    status.innerText =
+        "🧠 Chicken AI is translating...";
+
+
+    /*
+     * Small delay for the AI effect.
+     */
+
+    setTimeout(function() {
+
+        let result = "";
+
+        if (
+            from === "english" &&
+            to === "chicken"
+        ) {
+
+            result =
+                englishToChicken(input);
+        }
+
+        else if (
+            from === "chicken" &&
+            to === "english"
+        ) {
+
+            result =
+                chickenToEnglish(input);
+        }
+
+        else {
+
+            result = input;
+        }
+
+
+        output.value = result;
+
+        status.innerText =
+            "✅ Translation complete! 🐔";
+
+
+        addHistory(
+            input,
+            result,
+            "⌨️"
+        );
+
+    }, 400);
+}
+
+
+/* =========================================================
+   SWAP LANGUAGES
+========================================================= */
+
+function swapLanguages() {
+
+    const from =
+        document.getElementById("fromLanguage");
+
+    const to =
+        document.getElementById("toLanguage");
+
+    const input =
+        document.getElementById("inputText");
+
+    const output =
+        document.getElementById("output");
+
+
+    const oldFrom =
+        from.value;
+
+    from.value =
+        to.value;
+
+    to.value =
+        oldFrom;
+
+
+    /*
+     * Swap input and output.
+     */
+
+    const oldInput =
+        input.value;
+
+    input.value =
+        output.value;
+
+    output.value =
+        oldInput;
+
+
+    document.getElementById("status")
+        .innerText =
+        "🔄 Languages swapped!";
+}
+
+
+/* =========================================================
+   COPY
+========================================================= */
+
+function copyText() {
+
+    const output =
+        document.getElementById("output");
+
+    const text =
+        output.value.trim();
+
+
+    if (!text) {
+
+        document.getElementById("status")
+            .innerText =
+            "⚠️ Nothing to copy.";
+
+        return;
+    }
+
+
+    /*
+     * Modern clipboard API.
+     */
+
+    if (
+        navigator.clipboard &&
+        window.isSecureContext
+    ) {
+
+        navigator.clipboard
+            .writeText(text)
+            .then(function() {
+
+                document.getElementById("status")
+                    .innerText =
+                    "📋 Copied to clipboard!";
+
+            })
+            .catch(function() {
+
+                fallbackCopy(text);
+
+            });
+
+    }
+
+    else {
+
+        fallbackCopy(text);
+    }
+}
+
+
+/* =========================================================
+   COPY FALLBACK
+========================================================= */
+
+function fallbackCopy(text) {
+
+    const temporary =
+        document.createElement("textarea");
+
+    temporary.value = text;
+
+    temporary.style.position =
+        "fixed";
+
+    temporary.style.opacity =
+        "0";
+
+    document.body.appendChild(
+        temporary
+    );
+
+    temporary.focus();
+
+    temporary.select();
+
+    try {
+
+        document.execCommand("copy");
+
+        document.getElementById("status")
+            .innerText =
+            "📋 Copied!";
+
+    }
+
+    catch (error) {
+
+        document.getElementById("status")
+            .innerText =
+            "❌ Could not copy text.";
+
+    }
+
+    document.body.removeChild(
+        temporary
+    );
+}
+
+
+/* =========================================================
+   TEXT TO SPEECH
+========================================================= */
+
+function speak() {
+
+    const text =
+        document
+            .getElementById("output")
+            .value
+            .trim();
+
+
+    if (!text) {
+
+        document.getElementById("status")
+            .innerText =
+            "⚠️ Translate something first!";
+
+        return;
+    }
+
+
+    if (
+        !("speechSynthesis" in window)
+    ) {
+
+        document.getElementById("status")
+            .innerText =
+            "❌ Your browser does not support speech.";
+
+        return;
+    }
+
+
+    /*
+     * Stop any existing speech.
+     */
+
+    window.speechSynthesis.cancel();
+
+
+    /*
+     * IMPORTANT:
+     * Determine speech type from
+     * the TO language, not FROM language.
+     */
+
+    const to =
+        document
+            .getElementById("toLanguage")
+            .value;
+
+
+    if (to === "chicken") {
+
+        speakChicken(text);
+
+    }
+
+    else {
+
+        speakHuman(text);
+    }
+}
+
+
+/* =========================================================
+   🐔 CHICKEN VOICE
+========================================================= */
+
+function speakChicken(text) {
+
+    const chickenSounds =
+        text
+            .toLowerCase()
+            .replace(/[.,!?]/g, "")
+            .split(/\s+/)
+            .filter(Boolean);
+
+
+    if (chickenSounds.length === 0) {
+        return;
+    }
+
+
+    let index = 0;
+
+
+    function nextSound() {
+
+        if (
+            index >=
+            chickenSounds.length
+        ) {
+
+            document.getElementById("status")
+                .innerText =
+                "🔊 Chicken voice finished! 🐔";
+
+            return;
+        }
+
+
+        const sound =
+            chickenSounds[index];
+
+        index++;
+
+
+        const parts =
+            sound.split("-");
+
+
+        speakParts(
+            parts,
+            0,
+            nextSound
+        );
+    }
+
+
+    document.getElementById("status")
+        .innerText =
+        "🐔🔊 Chicken is speaking...";
+
+
+    nextSound();
+}
+
+
+/* =========================================================
+   SPEAK CHICKEN PARTS
+========================================================= */
+
+function speakParts(
+    parts,
+    index,
+    callback
+) {
+
+    if (
+        index >=
+        parts.length
+    ) {
+
+        setTimeout(
+            callback,
+            150
+        );
+
+        return;
+    }
+
+
+    const sound =
+        parts[index];
+
+
+    const voice =
+        new SpeechSynthesisUtterance(
+            sound
+        );
+
+
+    /*
+     * Slight variation makes the
+     * chicken voice less robotic.
+     */
+
+    voice.rate =
+        0.6 +
+        Math.random() * 0.2;
+
+    voice.pitch =
+        1.6 +
+        Math.random() * 0.5;
+
+    voice.volume = 1;
+
+
+    voice.onend = function() {
+
+        setTimeout(function() {
+
+            speakParts(
+                parts,
+                index + 1,
+                callback
+            );
+
+        }, 100);
+    };
+
+
+    voice.onerror = function() {
+
+        /*
+         * Continue with the next
+         * chicken sound if one fails.
+         */
+
+        speakParts(
+            parts,
+            index + 1,
+            callback
+        );
+    };
+
+
+    window.speechSynthesis.speak(
+        voice
+    );
+}
+
+
+/* =========================================================
+   HUMAN VOICE
+========================================================= */
+
+function speakHuman(text) {
+
+    const voice =
+        new SpeechSynthesisUtterance(
+            text
+        );
+
+
+    voice.lang = "en-US";
+
+    voice.rate = 0.9;
+
+    voice.pitch = 1;
+
+    voice.volume = 1;
+
+
+    voice.onstart = function() {
+
+        document.getElementById("status")
+            .innerText =
+            "🔊 Speaking...";
+    };
+
+
+    voice.onend = function() {
+
+        document.getElementById("status")
+            .innerText =
+            "🔊 Speech finished.";
+    };
+
+
+    voice.onerror = function() {
+
+        document.getElementById("status")
+            .innerText =
+            "❌ Could not play speech.";
+    };
+
+
+    window.speechSynthesis.speak(
+        voice
+    );
+}
+
+
+/* =========================================================
+   🎤 SPEECH RECOGNITION
+========================================================= */
+
+let recognition = null;
+
+let isListening = false;
+
+let voiceInputMode = null;
+
+
+/*
+ * Browser compatibility.
+ */
+
+const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+
+/*
+ * Initialize recognition.
+ */
+
+if (SpeechRecognition) {
+
+    recognition =
+        new SpeechRecognition();
+
+
+    /*
+     * We only need one sentence at a time.
+     */
+
+    recognition.continuous =
+        false;
+
+    recognition.interimResults =
+        false;
+
+    recognition.lang =
+        "en-US";
+
+
+    /* -----------------------------------------
+       SPEECH RESULT
+    ----------------------------------------- */
+
+    recognition.onresult =
+        function(event) {
+
+            const transcript =
+                event
+                    .results[0][0]
+                    .transcript
+                    .trim();
+
+
+            /*
+             * Chicken mode:
+             * normalize common speech-recognition
+             * mistakes.
+             */
+
+            let finalTranscript =
+                transcript;
+
+
+            if (
+                voiceInputMode ===
+                "chicken"
+            ) {
+
+                finalTranscript =
+                    normalizeChickenSpeech(
+                        transcript
+                    );
+            }
+
+
+            document
+                .getElementById("inputText")
+                .value =
+                finalTranscript;
+
+
+            document
+                .getElementById("status")
+                .innerText =
+                "🎤 Heard: " +
+                finalTranscript;
+
+
+            /*
+             * Automatically translate.
+             */
+
+            setTimeout(
+                function() {
+
+                    translateText();
+
+                },
+                300
+            );
+        };
+
+
+    /* -----------------------------------------
+       RECORDING STARTED
+    ----------------------------------------- */
+
+    recognition.onstart =
+        function() {
+
+            isListening = true;
+
+            updateMicrophoneButtons(
+                true
+            );
+
+
+            if (
+                voiceInputMode ===
+                "chicken"
+            ) {
+
+                document
+                    .getElementById("status")
+                    .innerText =
+                    "🐔🎤 Listening for chicken sounds...";
+
+            }
+
+            else {
+
+                document
+                    .getElementById("status")
+                    .innerText =
+                    "🎤 Listening... Speak now!";
+
+            }
+        };
+
+
+    /* -----------------------------------------
+       RECORDING ENDED
+    ----------------------------------------- */
+
+    recognition.onend =
+        function() {
+
+            isListening = false;
+
+            updateMicrophoneButtons(
+                false
+            );
+
+
+            /*
+             * Don't overwrite a useful
+             * translation-complete message.
+             */
+
+            if (
+                !document
+                    .getElementById("output")
+                    .value
+            ) {
+
+                document
+                    .getElementById("status")
+                    .innerText =
+                    "🎤 Listening stopped.";
+
+            }
+        };
+
+
+    /* -----------------------------------------
+       ERROR
+    ----------------------------------------- */
+
+    recognition.onerror =
+        function(event) {
+
+            console.error(
+                "Speech recognition error:",
+                event.error
+            );
+
+
+            isListening = false;
+
+            updateMicrophoneButtons(
+                false
+            );
+
+
+            let message =
+                "❌ Microphone error.";
+
+
+            if (
+                event.error ===
+                "not-allowed"
+            ) {
+
+                message =
+                    "❌ Microphone permission was denied.";
+
+            }
+
+            else if (
+                event.error ===
+                "no-speech"
+            ) {
+
+                message =
+                    "🎤 No speech detected. Try again.";
+
+            }
+
+            else if (
+                event.error ===
+                "audio-capture"
+            ) {
+
+                message =
+                    "❌ No microphone was detected.";
+
+            }
+
+            else if (
+                event.error ===
+                "network"
+            ) {
+
+                message =
+                    "❌ Speech recognition network error.";
+
+            }
+
+
+            document
+                .getElementById("status")
+                .innerText =
+                message;
+        };
+}
+
+
+/* =========================================================
+   NORMALIZE CHICKEN SPEECH
+========================================================= */
+
+function normalizeChickenSpeech(
+    transcript
+) {
+
+    let text =
+        transcript.toLowerCase();
+
+
+    /*
+     * Browser speech recognition can
+     * mishear chicken-style words.
+     *
+     * These replacements are intentionally
+     * conservative.
+     */
+
+    text =
+        text.replace(
+            /\bclock\b/g,
+            "cluck"
+        );
+
+    text =
+        text.replace(
+            /\bclocks\b/g,
+            "clucks"
+        );
+
+    text =
+        text.replace(
+            /\bbock\b/g,
+            "bok"
+        );
+
+    text =
+        text.replace(
+            /\bbox\b/g,
+            "bok"
+        );
+
+    text =
+        text.replace(
+            /\bbock-bock\b/g,
+            "bok-bok"
+        );
+
+
+    return text;
+}
+
+
+/* =========================================================
+   🎤 START ENGLISH LISTENING
+========================================================= */
+
+function startListening() {
+
+    if (!recognition) {
+
+        document
+            .getElementById("status")
+            .innerText =
+            "❌ Speech recognition is not supported. Try Chrome or Edge.";
+
+        return;
+    }
+
+
+    /*
+     * If already listening, stop instead
+     * of calling start() again.
+     */
+
+    if (isListening) {
+
+        stopListening();
+
+        return;
+    }
+
+
+    voiceInputMode =
+        "english";
+
+
+    document
+        .getElementById("fromLanguage")
+        .value =
+        "english";
+
+    document
+        .getElementById("toLanguage")
+        .value =
+        "chicken";
+
+
+    recognition.lang =
+        "en-US";
+
+
+    startRecognition();
+}
+
+
+/* =========================================================
+   🐔 START CHICKEN LISTENING
+========================================================= */
+
+function startChickenListening() {
+
+    if (!recognition) {
+
+        document
+            .getElementById("status")
+            .innerText =
+            "❌ Speech recognition is not supported. Try Chrome or Edge.";
+
+        return;
+    }
+
+
+    if (isListening) {
+
+        stopListening();
+
+        return;
+    }
+
+
+    voiceInputMode =
+        "chicken";
+
+
+    document
+        .getElementById("fromLanguage")
+        .value =
+        "chicken";
+
+    document
+        .getElementById("toLanguage")
+        .value =
+        "english";
+
+
+    /*
+     * The browser still uses English speech
+     * recognition because "cluck", "bawk"
+     * and "bok" are spoken words rather than
+     * a real browser-recognition language.
+     */
+
+    recognition.lang =
+        "en-US";
+
+
+    startRecognition();
+}
+
+
+/* =========================================================
+   START RECOGNITION SAFELY
+========================================================= */
+
+function startRecognition() {
+
+    if (isListening) {
+
+        return;
+    }
+
+
+    try {
+
+        recognition.start();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not start recognition:",
+            error
+        );
+
+
+        if (
+            error.name ===
+            "InvalidStateError"
+        ) {
+
+            document
+                .getElementById("status")
+                .innerText =
+                "🎤 Already listening...";
+
+        }
+
+        else {
+
+            document
+                .getElementById("status")
+                .innerText =
+                "❌ Could not start microphone.";
+        }
+    }
+}
+
+
+/* =========================================================
+   STOP LISTENING
+========================================================= */
+
+function stopListening() {
+
+    if (!recognition) {
+        return;
+    }
+
+
+    try {
+
+        recognition.stop();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not stop recognition:",
+            error
+        );
+
+    }
+
+
+    isListening = false;
+
+    updateMicrophoneButtons(
+        false
+    );
+}
+
+
+/* =========================================================
+   UPDATE MICROPHONE BUTTONS
+========================================================= */
+
+function updateMicrophoneButtons(
+    listening
+) {
+
+    const englishButton =
+        document.getElementById(
+            "englishMicButton"
+        );
+
+    const chickenButton =
+        document.getElementById(
+            "chickenMicButton"
+        );
+
+
+    if (
+        !englishButton ||
+        !chickenButton
+    ) {
+        return;
+    }
+
+
+    if (listening) {
+
+        englishButton.classList.add(
+            "listening"
+        );
+
+        chickenButton.classList.add(
+            "listening"
+        );
+
+
+        if (
+            voiceInputMode ===
+            "english"
+        ) {
+
+            englishButton.innerText =
+                "🛑 Stop Listening";
+
+            chickenButton.innerText =
+                "🐔🎤 Chicken Mode";
+
+        }
+
+        else {
+
+            englishButton.innerText =
+                "🎤 English Mode";
+
+            chickenButton.innerText =
+                "🛑 Stop Listening";
+
+        }
+
+    }
+
+    else {
+
+        englishButton.classList.remove(
+            "listening"
+        );
+
+        chickenButton.classList.remove(
+            "listening"
+        );
+
+
+        englishButton.innerText =
+            "🎤 Speak English";
+
+        chickenButton.innerText =
+            "🐔🎤 Speak Chicken";
+    }
+}
+
+
+/* =========================================================
+   CLEAR
+========================================================= */
+
+function clearText() {
+
+    /*
+     * Stop speech synthesis.
+     */
+
+    if (
+        "speechSynthesis" in window
+    ) {
+
+        window.speechSynthesis.cancel();
+    }
+
+
+    /*
+     * Stop microphone recognition.
+     */
+
+    if (recognition) {
+
+        try {
+
+            recognition.stop();
+
+        }
+
+        catch (error) {
+
+            console.log(
+                "Recognition already stopped."
+            );
+        }
+    }
+
+
+    isListening = false;
+
+    voiceInputMode = null;
+
+
+    updateMicrophoneButtons(
+        false
+    );
+
+
+    document
+        .getElementById("inputText")
+        .value = "";
+
+    document
+        .getElementById("output")
+        .value = "";
+
+
+    document
+        .getElementById("status")
+        .innerText =
+        "Ready to translate 🐔";
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function addHistory(
+    input,
+    output,
+    sourceIcon = "⌨️"
+) {
+
+    const history =
+        document.getElementById(
+            "history"
+        );
+
+
+    /*
+     * Remove placeholder.
+     */
+
+    if (
+        history.innerText.trim() ===
+        "No translations yet."
+    ) {
+
+        history.innerHTML = "";
+    }
+
+
+    const item =
+        document.createElement(
+            "div"
+        );
+
+    item.className =
+        "history-item";
+
+
+    const inputElement =
+        document.createElement(
+            "div"
+        );
+
+    inputElement.className =
+        "input";
+
+    inputElement.innerText =
+        sourceIcon +
+        " " +
+        input;
+
+
+    const outputElement =
+        document.createElement(
+            "div"
+        );
+
+    outputElement.className =
+        "result";
+
+    outputElement.innerText =
+        "🐔 " +
+        output;
+
+
+    item.appendChild(
+        inputElement
+    );
+
+    item.appendChild(
+        outputElement
+    );
+
+
+    history.prepend(
+        item
+    );
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUT
+========================================================= */
+
+document
+    .getElementById("inputText")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            /*
+             * Ctrl + Enter = Translate
+             */
+
+            if (
+                event.ctrlKey &&
+                event.key === "Enter"
+            ) {
+
+                event.preventDefault();
+
+                translateText();
+            }
+        }
+    );
+
+
+/* =========================================================
+   STOP SPEECH WHEN PAGE IS CLOSED
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    function() {
+
+        if (
+            "speechSynthesis" in window
+        ) {
+
+            window.speechSynthesis.cancel();
+        }
+
+        if (recognition) {
+
+            try {
+                recognition.stop();
+            }
+            catch (error) {}
+        }
+    }
+);
+
+</script>
+
+</body>
+</html>
