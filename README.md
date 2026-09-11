@@ -47,9 +47,7 @@ python main.py
 For Software:
 
 # Screenshots (Add at least 3)
-recent:///b9f045942808c3f5702fc55a6aa47109
-recent:///e560f483ce9a6c07853b14af6aa47168
-recent:///245a1652e38e54702e878d686aa471be
+
 # Diagrams
         ┌─────────────────┐
         │   User Input    │
