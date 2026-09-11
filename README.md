@@ -18,10 +18,10 @@
 A python based project that translates human language into a fun "chicken language" and converts chicken language back into human readable text.
 
 ### The Problem (that doesn't exist)
-humans cannot communicate to chickens directly.which can create a 
+humans cannot communicate to chickens directly.which can create a communication gap
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+we created a AI translator to reduce the gap and increase communication
 
 ## Technical Details
 ### Technologies/Components Used
