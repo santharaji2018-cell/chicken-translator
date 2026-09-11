@@ -47,6 +47,9 @@ python main.py
 For Software:
 
 # Screenshots (Add at least 3)
+1)https://drive.google.com/file/d/153u9w6rO-DP4J0BzzAMfkk4_i1BhiMi7/view?usp=drive_link
+2)https://drive.google.com/file/d/1eR4jUs0mmrrCvRsSVeOESkpelTogiI43/view?usp=drive_link
+3)https://drive.google.com/file/d/1f4lv5UUtcxvqNSNU7nmf6whC2O5p4qGW/view?usp=drive_link
 
 # Diagrams
         ┌─────────────────┐
@@ -98,7 +101,7 @@ For Hardware:
 # 
 
 # Additional Demos
-[Add any extra demo materials/links]
+Video Demo :- https://drive.google.com/file/d/1mjsF6JfujPU1jgvRcNQ2lCasYzRx6plr/view?usp=drive_link
 
 ## Team Contributions
 - Adwaith: Project idea, Python development, translation logic, testing and documentation.
