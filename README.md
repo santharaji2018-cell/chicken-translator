@@ -26,15 +26,13 @@ we created a AI translator to reduce the gap and increase communication
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
+- html
 - [Frameworks used]
 - [Libraries used]
-- [Tools used]
+- VS Code, Git, GitHub
 
 For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+- No additional hardware is required.
 
 ### Implementation
 For Software:
@@ -42,25 +40,41 @@ For Software:
 [commands]
 
 # Run
-[commands]
+python main.py
+
 
 ### Project Documentation
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
-
+        ┌─────────────────┐
+        │   User Input    │
+        └────────┬────────┘
+                 │
+                 ▼
+        ┌─────────────────┐
+        │ Detect Language │
+        └────────┬────────┘
+                 │
+                 ▼
+        ┌─────────────────┐
+        │ Translation     │
+        │     Engine      │
+        └────────┬────────┘
+                 │
+          ┌──────┴──────┐
+          │             │
+          ▼             ▼
+     Human → Chicken  Chicken → Human
+          │             │
+          └──────┬──────┘
+                 ▼
+        ┌─────────────────┐
+        │  Output Result  │
+        └─────────────────┘
+The user enters text → the translator processes the input → the appropriate translation logic is applied → the translated Chicken/Human language is displayed
 For Hardware:
 
 # Schematic & Circuit
@@ -81,17 +95,14 @@ For Hardware:
 *Explain the final build*
 
 ### Project Demo
-# Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+# 
 
 # Additional Demos
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- Adwaith: Project idea, Python development, translation logic, testing and documentation.
+Aron: UI/development support, testing, debugging and project presentation
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
