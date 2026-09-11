@@ -2,23 +2,23 @@
 
 
 
-# [Project Name] 🎯
+# chicken translator 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: aronxadwaith
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: adwaith - iccs college of engineering
+- Member 2: aron - iccs college of engineering
+  
 
 ### Project Description
-[2-3 lines about what your project does]
+A python based project that translates human language into a fun "chicken language" and converts chicken language back into human readable text.
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+humans cannot communicate to chickens directly.which can create a 
 
 ### The Solution (that nobody asked for)
 [How are you solving it? Keep it fun!]
