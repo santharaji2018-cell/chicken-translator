@@ -37,7 +37,7 @@ For Hardware:
 ### Implementation
 For Software:
 # Installation
-[commands]
+Website:- https://santharaji2018-cell.github.io/chicken-translator/
 
 # Run
 python main.py
